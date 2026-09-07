@@ -1,0 +1,101 @@
+---
+import '../index.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  canonicalUrl?: string;
+}
+
+const {
+  title = "Ahmad Garba Adamu — Aga / @rufatronics | Edge AI Engineer & Researcher",
+  description = "Official portfolio of Ahmad Garba Adamu (@rufatronics) — AI engineer and researcher building edge-first AI systems, low-resource ML models, intent routers, and African technology.",
+  image = "https://aga.name.ng/images/ahmad-garba-adamu.jpg",
+  canonicalUrl = "https://aga.name.ng/"
+} = Astro.props;
+
+// JSON-LD Structured Data: Person & WebSite
+const personSchema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Ahmad Garba Adamu",
+  "alternateName": ["Aga", "@rufatronics", "Rufatronics"],
+  "url": "https://aga.name.ng",
+  "image": "https://aga.name.ng/images/ahmad-garba-adamu.jpg",
+  "jobTitle": "AI Engineer & Research Systems Builder",
+  "knowsAbout": [
+    "Artificial Intelligence",
+    "Edge AI",
+    "Low-Resource Machine Learning",
+    "Transformers & Intent Routing",
+    "Geospatial Intelligence",
+    "Android NDK",
+    "Go Systems"
+  ],
+  "sameAs": [
+    "https://github.com/rufatronics",
+    "https://huggingface.co/rufatronics",
+    "https://linkedin.com/in/ahmad-garba-adamu-91a22631b"
+  ],
+  "email": "contact@aga.name.ng",
+  "telephone": "+234 708 741 7103",
+  "address": {
+    "@type": "PostalAddress",
+    "addressCountry": "Nigeria"
+  }
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Rufatronics / Ahmad Garba Adamu",
+  "url": "https://aga.name.ng",
+  "description": description,
+  "author": {
+    "@type": "Person",
+    "name": "Ahmad Garba Adamu"
+  }
+};
+---
+
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph / Facebook / LinkedIn -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={image} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:site_name" content="Rufatronics / Ahmad Garba Adamu" />
+
+    <!-- Twitter / X -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@rufatronics" />
+    <meta name="twitter:creator" content="@rufatronics" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={image} />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Structured Data JSON-LD -->
+    <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
+  </head>
+  <body class="bg-[#0c0d0e] text-[#e1e4e8] antialiased selection:bg-neutral-700 selection:text-white font-sans min-h-screen">
+    <slot />
+  </body>
+</html>

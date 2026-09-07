@@ -1,0 +1,27 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Navbar } from '../components/Navbar';
+import { Hero } from '../components/Hero';
+import { WorkSection } from '../components/WorkSection';
+import { AiLabSection } from '../components/AiLabSection';
+import { StackSection } from '../components/StackSection';
+import { AboutSection } from '../components/AboutSection';
+import { ContactSection } from '../components/ContactSection';
+import { Footer } from '../components/Footer';
+---
+
+<Layout
+  title="Ahmad Garba Adamu — Aga / @rufatronics | Edge AI Engineer & Researcher"
+  description="Official portfolio of Ahmad Garba Adamu (@rufatronics) — AI engineer and researcher building edge-first AI systems, low-resource ML models, intent routers, and African technology."
+>
+  <Navbar client:load theme="dark" toggleTheme={() => {}} />
+  <main id="main-content" role="main">
+    <Hero client:load />
+    <WorkSection client:visible />
+    <AiLabSection client:visible />
+    <StackSection client:visible />
+    <AboutSection client:visible />
+    <ContactSection client:load />
+  </main>
+  <Footer />
+</Layout>
