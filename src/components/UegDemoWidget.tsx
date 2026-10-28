@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Send, Zap, ArrowRight, ShieldAlert, Cpu, CheckCircle2 } from 'lucide-react';
+import { Send, Zap, Cpu, CheckCircle2 } from 'lucide-react';
 
 interface UegClassification {
   intent: string;
@@ -12,7 +12,7 @@ interface UegClassification {
 }
 
 export const UegDemoWidget: React.FC = () => {
-  const [inputPrompt, setInputPrompt] = useState('Anallyze crop infection symptoms on cassava leaves in Hausa');
+  const [inputPrompt, setInputPrompt] = useState('Analyze crop infection symptoms on cassava leaves in Hausa');
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [result, setResult] = useState<UegClassification | null>({
     intent: 'AGRI_DIAGNOSTICS_QUERY',
@@ -85,56 +85,56 @@ export const UegDemoWidget: React.FC = () => {
 
       setResult(res);
       setIsAnalyzing(false);
-    }, 280);
+    }, 250);
   };
 
   return (
-    <div className="border border-neutral-800 dark:border-neutral-800 light:border-neutral-300 bg-[#090a0b] light:bg-neutral-50 p-6 md:p-8 space-y-6">
+    <div className="border border-[var(--border)] bg-[var(--surface)] p-6 space-y-6 rounded-sm font-sans">
 
       {/* Title Header */}
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-neutral-800 light:border-neutral-200 pb-4">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[var(--border)] pb-4">
         <div>
-          <div className="font-mono text-xs text-emerald-400 font-semibold tracking-wider uppercase flex items-center gap-2">
+          <div className="font-mono text-xs text-[var(--accent)] font-semibold tracking-wider uppercase flex items-center gap-2">
             <Cpu className="w-4 h-4" />
-            INTERACTIVE CLASSIFIER DEMO
+            Interactive Classifier Demo
           </div>
-          <h3 className="text-xl font-heading font-bold text-white light:text-neutral-900 mt-1">
+          <h4 className="text-lg font-heading font-bold text-[var(--text)] mt-1">
             UEG-35M Intent & Routing Engine
-          </h3>
+          </h4>
         </div>
 
-        <div className="font-mono text-[11px] text-neutral-400 bg-neutral-900 light:bg-neutral-200 px-3 py-1.5 border border-neutral-800 light:border-neutral-300 flex items-center gap-3">
-          <span>MODEL: <strong className="text-white light:text-neutral-900">UEG-35M</strong></span>
-          <span className="text-neutral-600">|</span>
-          <span>LATENCY: <strong className="text-emerald-400">~2ms</strong></span>
+        <div className="font-mono text-[11px] text-[var(--text-muted)] bg-[var(--bg)] px-3 py-1.5 border border-[var(--border)] flex items-center gap-3 rounded-sm">
+          <span>MODEL: <strong className="text-[var(--text)]">UEG-35M</strong></span>
+          <span className="text-[var(--border-strong)]">|</span>
+          <span className="text-[var(--accent)] font-semibold">Simulated example</span>
         </div>
       </div>
 
-      <p className="text-xs text-neutral-400 light:text-neutral-600 leading-relaxed font-sans">
-        Test how the 35M-parameter bidirectional transformer evaluates intent, selects local vs cloud execution tiers, and calculates routing decisions prior to LLM invocation.
+      <p className="text-xs text-[var(--text-muted)] leading-relaxed">
+        Simulated demonstration of how the 35M-parameter bidirectional transformer evaluates intent, selects local vs cloud execution tiers, and calculates routing decisions prior to LLM invocation.
       </p>
 
       {/* Input Box & Quick Samples */}
       <div className="space-y-3">
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={inputPrompt}
             onChange={(e) => setInputPrompt(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleClassify()}
             placeholder="Type a sample query (e.g. diagnose crop leaf disease)..."
-            className="flex-1 bg-neutral-950 light:bg-white border border-neutral-800 light:border-neutral-300 px-4 py-2.5 font-mono text-xs text-neutral-200 light:text-neutral-900 focus:outline-none focus:border-emerald-500 transition-colors"
+            className="flex-1 bg-[var(--bg)] border border-[var(--border)] px-4 py-2.5 font-mono text-xs text-[var(--text)] focus:outline-none focus:border-[var(--accent)] transition-colors rounded-sm min-h-[44px]"
           />
           <button
             onClick={() => handleClassify()}
             disabled={isAnalyzing}
-            className="px-5 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-black font-mono text-xs font-bold uppercase transition-colors flex items-center gap-2 disabled:opacity-50 focus:outline-none"
+            className="px-5 py-2.5 bg-[var(--accent)] hover:opacity-90 text-white font-mono text-xs font-bold uppercase transition-colors flex items-center justify-center gap-2 disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-[var(--accent)] rounded-sm min-h-[44px] cursor-pointer"
           >
             {isAnalyzing ? (
-              <span className="animate-pulse">EVALUATING...</span>
+              <span className="animate-pulse">Evaluating...</span>
             ) : (
               <>
-                <span>CLASSIFY</span>
+                <span>Classify</span>
                 <Send className="w-3.5 h-3.5" />
               </>
             )}
@@ -143,7 +143,7 @@ export const UegDemoWidget: React.FC = () => {
 
         {/* Quick Sample Buttons */}
         <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-[11px]">
-          <span className="text-neutral-500">TRY PRESETS:</span>
+          <span className="text-[var(--text-muted)]">Presets:</span>
           {samplePrompts.map((p, idx) => (
             <button
               key={idx}
@@ -151,7 +151,7 @@ export const UegDemoWidget: React.FC = () => {
                 setInputPrompt(p.text);
                 handleClassify(p.text);
               }}
-              className="px-2.5 py-1 bg-neutral-900/80 light:bg-neutral-200 hover:bg-neutral-800 light:hover:bg-neutral-300 text-neutral-300 light:text-neutral-800 border border-neutral-800 light:border-neutral-300 transition-colors"
+              className="px-2.5 py-1.5 bg-[var(--bg)] hover:bg-[var(--surface-hover)] text-[var(--text)] border border-[var(--border)] transition-colors rounded-sm cursor-pointer min-h-[32px]"
             >
               {p.label}
             </button>
@@ -161,49 +161,48 @@ export const UegDemoWidget: React.FC = () => {
 
       {/* Results Output Pipeline */}
       {result && (
-        <div className="border border-neutral-800 light:border-neutral-300 bg-neutral-950 light:bg-white p-5 space-y-4">
+        <div className="border border-[var(--border)] bg-[var(--bg)] p-4 space-y-4 rounded-sm">
 
-          <div className="flex items-center justify-between text-xs font-mono border-b border-neutral-900 light:border-neutral-200 pb-3">
-            <span className="text-neutral-500">// CLASSIFICATION OUTPUT</span>
-            <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
+          <div className="flex items-center justify-between text-xs font-mono border-b border-[var(--border)] pb-2.5">
+            <span className="text-[var(--text-muted)]">Classification Output (Simulated example)</span>
+            <span className="text-[var(--accent)] font-semibold flex items-center gap-1.5">
               <Zap className="w-3.5 h-3.5" />
-              PROCESSED IN {result.latencyMs}ms
+              {result.latencyMs}ms
             </span>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3 font-mono text-xs">
 
-            <div className="p-3 bg-neutral-900/40 light:bg-neutral-100 border border-neutral-800/80 light:border-neutral-200 space-y-1">
-              <span className="text-[10px] text-neutral-500 block uppercase">PREDICTED INTENT</span>
-              <span className="text-emerald-400 font-bold block truncate">{result.intent}</span>
+            <div className="p-2.5 bg-[var(--surface)] border border-[var(--border)] space-y-1 rounded-sm">
+              <span className="text-[10px] text-[var(--text-muted)] block uppercase">Predicted Intent</span>
+              <span className="text-[var(--accent)] font-bold block truncate">{result.intent}</span>
             </div>
 
-            <div className="p-3 bg-neutral-900/40 light:bg-neutral-100 border border-neutral-800/80 light:border-neutral-200 space-y-1">
-              <span className="text-[10px] text-neutral-500 block uppercase">RESOURCE CLASS</span>
-              <span className="text-neutral-200 light:text-neutral-800 font-bold block truncate">{result.resource}</span>
+            <div className="p-2.5 bg-[var(--surface)] border border-[var(--border)] space-y-1 rounded-sm">
+              <span className="text-[10px] text-[var(--text-muted)] block uppercase">Resource Class</span>
+              <span className="text-[var(--text)] font-bold block truncate">{result.resource}</span>
             </div>
 
-            <div className="p-3 bg-neutral-900/40 light:bg-neutral-100 border border-neutral-800/80 light:border-neutral-200 space-y-1">
-              <span className="text-[10px] text-neutral-500 block uppercase">LANGUAGE / DIALECT</span>
-              <span className="text-neutral-200 light:text-neutral-800 font-bold block truncate">{result.language}</span>
+            <div className="p-2.5 bg-[var(--surface)] border border-[var(--border)] space-y-1 rounded-sm">
+              <span className="text-[10px] text-[var(--text-muted)] block uppercase">Language</span>
+              <span className="text-[var(--text)] font-bold block truncate">{result.language}</span>
             </div>
 
-            <div className="p-3 bg-neutral-900/40 light:bg-neutral-100 border border-neutral-800/80 light:border-neutral-200 space-y-1">
-              <span className="text-[10px] text-neutral-500 block uppercase">CONFIDENCE SCORE</span>
-              <span className="text-emerald-400 font-bold block">{result.confidence}</span>
+            <div className="p-2.5 bg-[var(--surface)] border border-[var(--border)] space-y-1 rounded-sm">
+              <span className="text-[10px] text-[var(--text-muted)] block uppercase">Confidence</span>
+              <span className="text-[var(--accent)] font-bold block">{result.confidence}</span>
             </div>
 
           </div>
 
-          {/* Tier Decision Pipeline Banner */}
-          <div className="p-3 border border-emerald-900/50 light:border-emerald-300 bg-emerald-950/20 light:bg-emerald-50/50 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono">
+          <div className="p-3 border border-[var(--border)] bg-[var(--surface)] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-xs font-mono rounded-sm">
             <div>
-              <span className="text-emerald-400 font-bold tracking-wider block">{result.tier}</span>
-              <span className="text-neutral-400 light:text-neutral-600 text-[11px]">{result.tierDescription}</span>
+              <span className="text-[var(--accent)] font-bold block">{result.tier}</span>
+              <span className="text-[var(--text-muted)] text-[11px]">{result.tierDescription}</span>
             </div>
-            <div className="flex items-center gap-1 text-[11px] text-emerald-400 font-semibold shrink-0">
+            <div className="flex items-center gap-1 text-[11px] text-[var(--accent)] font-semibold shrink-0">
               <CheckCircle2 className="w-4 h-4" />
-              <span>OPTIMAL ROUTE</span>
+              <span>Optimal Route</span>
             </div>
           </div>
 

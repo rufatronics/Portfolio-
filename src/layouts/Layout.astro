@@ -9,58 +9,36 @@ interface Props {
 }
 
 const {
-  title = "Ahmad Garba Adamu — Aga / @rufatronics | Edge AI Engineer & Researcher",
-  description = "Official portfolio of Ahmad Garba Adamu (@rufatronics) — AI engineer and researcher building edge-first AI systems, low-resource ML models, intent routers, and African technology.",
+  title = "Ahmad Garba Adamu — AI Engineer & Researcher",
+  description = "Reliable AI systems for low-resource environments. AI engineer and researcher in Kano, Nigeria working on small language models, on-device AI, and Hausa and African-language NLP.",
   image = "https://aga.name.ng/images/ahmad-garba-adamu.jpg",
   canonicalUrl = "https://aga.name.ng/"
 } = Astro.props;
 
-// JSON-LD Structured Data: Person & WebSite
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Ahmad Garba Adamu",
-  "alternateName": ["Aga", "@rufatronics", "Rufatronics"],
+  "alternateName": ["Aga", "@rufatronics"],
   "url": "https://aga.name.ng",
   "image": "https://aga.name.ng/images/ahmad-garba-adamu.jpg",
-  "jobTitle": "AI Engineer & Research Systems Builder",
-  "knowsAbout": [
-    "Artificial Intelligence",
-    "Edge AI",
-    "Low-Resource Machine Learning",
-    "Transformers & Intent Routing",
-    "Geospatial Intelligence",
-    "Android NDK",
-    "Go Systems"
-  ],
+  "jobTitle": "AI Engineer & Researcher",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Kano",
+    "addressCountry": "Nigeria"
+  },
   "sameAs": [
     "https://github.com/rufatronics",
     "https://huggingface.co/rufatronics",
     "https://linkedin.com/in/ahmad-garba-adamu-91a22631b"
   ],
-  "email": "contact@aga.name.ng",
-  "telephone": "+234 708 741 7103",
-  "address": {
-    "@type": "PostalAddress",
-    "addressCountry": "Nigeria"
-  }
-};
-
-const websiteSchema = {
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "Rufatronics / Ahmad Garba Adamu",
-  "url": "https://aga.name.ng",
-  "description": description,
-  "author": {
-    "@type": "Person",
-    "name": "Ahmad Garba Adamu"
-  }
+  "email": "contact@aga.name.ng"
 };
 ---
 
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -69,14 +47,14 @@ const websiteSchema = {
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonicalUrl} />
 
-    <!-- Open Graph / Facebook / LinkedIn -->
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={image} />
     <meta property="og:locale" content="en_US" />
-    <meta property="og:site_name" content="Rufatronics / Ahmad Garba Adamu" />
+    <meta property="og:site_name" content="Ahmad Garba Adamu" />
 
     <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -91,11 +69,27 @@ const websiteSchema = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
+    <!-- Theme Initialization Script (Prevents flash of unstyled theme) -->
+    <script is:inline>
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'light' || savedTheme === 'dark') {
+          document.documentElement.classList.add(savedTheme);
+        } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+          document.documentElement.classList.add('light');
+        } else {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
     <!-- Structured Data JSON-LD -->
     <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
-    <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
   </head>
-  <body class="bg-[#0c0d0e] text-[#e1e4e8] antialiased selection:bg-neutral-700 selection:text-white font-sans min-h-screen">
+  <body class="antialiased min-h-screen">
+    <a href="#main-content" class="skip-to-content">
+      Skip to content
+    </a>
     <slot />
   </body>
 </html>
