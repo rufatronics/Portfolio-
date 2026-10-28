@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { LAB_EXPERIMENTS } from '../data/portfolioData';
-import { FlaskConical, ExternalLink, Cpu, Database, BarChart3, ArrowUpRight } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 
 export const AiLabSection: React.FC = () => {
   const [filter, setFilter] = useState<string>('ALL');
@@ -9,119 +9,108 @@ export const AiLabSection: React.FC = () => {
 
   const filteredExperiments = LAB_EXPERIMENTS.filter((item) => {
     if (filter === 'ALL') return true;
-    if (filter === 'RESEARCH') return item.status === 'RESEARCH';
     return item.category === filter;
   });
 
   return (
-    <section id="lab" className="py-20 border-b border-neutral-800 dark:border-neutral-800 light:border-neutral-200 bg-[#090a0b] light:bg-neutral-50 relative">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="research" className="py-16 border-b border-[var(--border)] bg-[var(--surface)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800 light:border-neutral-200 pb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[var(--border)] pb-6">
           <div>
-            <div className="font-mono text-xs text-emerald-400 tracking-widest uppercase flex items-center gap-2">
-              <FlaskConical className="w-4 h-4 text-emerald-400" />
-              02 // EXPERIMENTAL DIVISION
+            <div className="font-mono text-xs text-[var(--accent)] uppercase tracking-wider">
+              Research & Open Models
             </div>
-            <h2 className="text-4xl sm:text-5xl font-heading font-extrabold text-white dark:text-white light:text-neutral-900 uppercase mt-2">
-              AI LAB & RESEARCH
+            <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[var(--text)] mt-1">
+              Models, Datasets & Benchmarks
             </h2>
           </div>
-          <div className="max-w-md text-xs font-mono text-neutral-400 light:text-neutral-600 space-y-1">
-            <p>MODELS / DATASETS / BENCHMARKS / EDGE SYSTEMS</p>
-            <p className="text-emerald-400 font-semibold">Active research on low-resource LLM routing and edge quantization.</p>
-          </div>
+          <a
+            href="https://huggingface.co/rufatronics"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="font-mono text-xs text-[var(--text-muted)] hover:text-[var(--accent)] transition-colors flex items-center gap-1.5"
+          >
+            <span>Hugging Face Organization</span>
+            <ArrowUpRight className="w-3.5 h-3.5" />
+          </a>
         </div>
 
         {/* Filter Toolbar */}
         <div className="flex flex-wrap items-center gap-2 font-mono text-xs">
-          <span className="text-neutral-500 uppercase tracking-wider mr-2 text-[11px]">// CATEGORY:</span>
+          <span className="text-[var(--text-muted)] mr-2">Filter:</span>
           {categories.map((cat) => (
             <button
               key={cat}
               onClick={() => setFilter(cat)}
-              className={`px-3 py-1.5 border transition-all cursor-pointer ${
+              className={`px-3 py-1.5 border transition-all rounded-sm cursor-pointer min-h-[36px] ${
                 filter === cat
-                  ? 'bg-emerald-500 text-black font-bold border-emerald-500'
-                  : 'bg-neutral-900/60 light:bg-white text-neutral-400 light:text-neutral-700 border-neutral-800 light:border-neutral-300 hover:border-neutral-600'
+                  ? 'bg-[var(--accent)] text-white font-bold border-[var(--accent)]'
+                  : 'bg-[var(--bg)] text-[var(--text-muted)] border-[var(--border)] hover:border-[var(--border-strong)]'
               }`}
             >
-              [{cat}]
+              {cat}
             </button>
           ))}
         </div>
 
-        {/* Lab Research Index / Table */}
-        <div className="border border-neutral-800 dark:border-neutral-800 light:border-neutral-300 bg-[#0c0d0e] light:bg-white divide-y divide-neutral-800/80 light:divide-neutral-200 font-mono">
+        {/* Table / Boxed Grid Layout */}
+        <div className="border border-[var(--border)] bg-[var(--bg)] divide-y divide-[var(--border)] font-mono text-xs rounded-sm">
 
-          {/* Table Header */}
-          <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 text-[11px] text-neutral-500 font-semibold uppercase tracking-wider bg-neutral-950 light:bg-neutral-100">
-            <div className="col-span-3">EXPERIMENT / ENTRY</div>
-            <div className="col-span-2">TYPE</div>
-            <div className="col-span-4">RESEARCH SCOPE</div>
-            <div className="col-span-2">TECHNICAL SPECS</div>
-            <div className="col-span-1 text-right">STATUS</div>
+          {/* Table Header (Desktop) */}
+          <div className="hidden md:grid grid-cols-12 gap-4 px-6 py-3 font-semibold text-[var(--text-muted)] uppercase bg-[var(--surface)] border-b border-[var(--border)]">
+            <div className="col-span-4">Name</div>
+            <div className="col-span-2">Type</div>
+            <div className="col-span-4">Description</div>
+            <div className="col-span-2 text-right">Status</div>
           </div>
 
-          {/* Table Rows */}
+          {/* Rows */}
           {filteredExperiments.map((lab) => (
             <div
               key={lab.id}
-              className="grid grid-cols-1 md:grid-cols-12 gap-4 px-6 py-5 items-center hover:bg-neutral-900/30 light:hover:bg-neutral-50 transition-colors"
+              className="grid grid-cols-1 md:grid-cols-12 gap-3 p-4 sm:px-6 sm:py-4 items-start md:items-center hover:bg-[var(--surface-hover)] transition-colors"
             >
               {/* Name */}
-              <div className="col-span-1 md:col-span-3 space-y-1">
-                <div className="text-sm font-bold text-white dark:text-white light:text-neutral-900 flex items-center gap-2">
+              <div className="col-span-1 md:col-span-4 space-y-1">
+                <div className="font-bold text-sm text-[var(--text)] flex items-center gap-2">
                   <span>{lab.name}</span>
                   {lab.link && (
                     <a
                       href={lab.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-neutral-500 hover:text-emerald-400"
+                      className="text-[var(--text-muted)] hover:text-[var(--accent)]"
                     >
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </a>
                   )}
                 </div>
-                <div className="text-[10px] text-neutral-500">ID: {lab.id}</div>
+                <div className="text-[11px] text-[var(--text-muted)]">{lab.specs}</div>
               </div>
 
-              {/* Type Category Badge */}
+              {/* Type */}
               <div className="col-span-1 md:col-span-2">
-                <span className="inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] font-bold bg-neutral-900 light:bg-neutral-100 border border-neutral-800 light:border-neutral-300 text-emerald-400">
-                  {lab.category === 'MODEL' && <Cpu className="w-3 h-3" />}
-                  {lab.category === 'DATASET' && <Database className="w-3 h-3 text-amber-400" />}
-                  {lab.category === 'BENCHMARK' && <BarChart3 className="w-3 h-3 text-cyan-400" />}
+                <span className="inline-block px-2 py-0.5 text-[10px] font-bold bg-[var(--surface)] border border-[var(--border)] text-[var(--text-muted)] rounded-sm">
                   {lab.category}
                 </span>
               </div>
 
-              {/* Scope Description */}
-              <div className="col-span-1 md:col-span-4 text-xs text-neutral-300 dark:text-neutral-300 light:text-neutral-700 font-sans">
+              {/* Description */}
+              <div className="col-span-1 md:col-span-4 text-xs font-sans text-[var(--text-muted)]">
                 {lab.description}
-                <div className="flex flex-wrap gap-1.5 mt-2 font-mono text-[10px] text-neutral-500">
-                  {lab.tags.map((t, idx) => (
-                    <span key={idx}>#{t}</span>
-                  ))}
-                </div>
               </div>
 
-              {/* Specs */}
-              <div className="col-span-1 md:col-span-2 text-xs text-neutral-400 light:text-neutral-600">
-                {lab.specs}
-              </div>
-
-              {/* Status Indicator */}
-              <div className="col-span-1 md:col-span-1 md:text-right">
+              {/* Status */}
+              <div className="col-span-1 md:col-span-2 md:text-right">
                 <span
-                  className={`inline-block px-2 py-0.5 text-[10px] font-bold border ${
+                  className={`inline-block px-2.5 py-1 text-[10px] font-bold border rounded-sm ${
                     lab.status === 'PUBLISHED'
-                      ? 'bg-emerald-950/40 text-emerald-400 border-emerald-800'
+                      ? 'bg-[var(--accent-bg)] text-[var(--accent)] border-[var(--accent)]'
                       : lab.status === 'ACTIVE'
-                      ? 'bg-cyan-950/40 text-cyan-400 border-cyan-800'
-                      : 'bg-amber-950/40 text-amber-400 border-amber-800'
+                      ? 'bg-[var(--surface)] text-[var(--text)] border-[var(--border-strong)]'
+                      : 'bg-[var(--bg)] text-[var(--text-muted)] border-[var(--border)]'
                   }`}
                 >
                   {lab.status}
@@ -131,25 +120,6 @@ export const AiLabSection: React.FC = () => {
             </div>
           ))}
 
-        </div>
-
-        {/* Lab Thesis Note */}
-        <div className="p-6 border border-dashed border-neutral-800 light:border-neutral-300 bg-neutral-950/60 light:bg-white flex flex-col md:flex-row items-start md:items-center justify-between gap-4 font-mono text-xs">
-          <div className="space-y-1">
-            <span className="text-neutral-200 light:text-neutral-800 font-bold block">LOCAL & EDGE INFERENCE THESIS</span>
-            <p className="text-neutral-400 light:text-neutral-600 text-[11px] max-w-2xl font-sans">
-              All models and datasets produced under the Rufatronics initiative prioritize transparent benchmarks, open-access weights, and functional low-RAM deployment.
-            </p>
-          </div>
-          <a
-            href="https://huggingface.co/rufatronics"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-4 py-2 border border-neutral-700 light:border-neutral-300 hover:border-emerald-500 text-neutral-200 light:text-neutral-800 hover:text-emerald-400 transition-colors shrink-0 flex items-center gap-2"
-          >
-            <span>HUGGINGFACE ORGANISATION</span>
-            <ExternalLink className="w-3.5 h-3.5" />
-          </a>
         </div>
 
       </div>

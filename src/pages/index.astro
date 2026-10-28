@@ -11,11 +11,11 @@ import { Footer } from '../components/Footer';
 ---
 
 <Layout
-  title="Ahmad Garba Adamu — Aga / @rufatronics | Edge AI Engineer & Researcher"
-  description="Official portfolio of Ahmad Garba Adamu (@rufatronics) — AI engineer and researcher building edge-first AI systems, low-resource ML models, intent routers, and African technology."
+  title="Ahmad Garba Adamu — AI Engineer & Researcher"
+  description="Reliable AI systems for low-resource environments. AI engineer and researcher in Kano, Nigeria working on small language models, on-device AI, and Hausa and African-language NLP."
 >
-  <Navbar client:load theme="dark" toggleTheme={() => {}} />
-  <main id="main-content" role="main">
+  <Navbar client:load />
+  <main id="main-content">
     <Hero client:load />
     <WorkSection client:visible />
     <AiLabSection client:visible />
@@ -23,5 +23,5 @@ import { Footer } from '../components/Footer';
     <AboutSection client:visible />
     <ContactSection client:load />
   </main>
-  <Footer />
+  <Footer client:load />
 </Layout>

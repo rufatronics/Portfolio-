@@ -5,10 +5,37 @@
     --font-heading: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
+
+    /* Light theme variables (off-white/white background, thin gray borders, near-black text, AA contrast accent) */
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-hover: #f1f5f9;
+    --border: #e2e8f0;
+    --border-strong: #cbd5e1;
+    --text: #0f172a;
+    --text-muted: #475569;
+    --accent: #047857; /* Darker emerald for AA contrast against white/off-white */
+    --accent-bg: #ecfdf5;
+  }
+
+  html.dark {
+    /* Dark theme variables (near-black background, slightly lighter card surfaces, soft borders, off-white text) */
+    --bg: #0c0d0e;
+    --surface: #121417;
+    --surface-hover: #1a1d21;
+    --border: #22262b;
+    --border-strong: #333a42;
+    --text: #e1e4e8;
+    --text-muted: #94a3b8;
+    --accent: #10b981; /* Standard bright emerald on dark */
+    --accent-bg: #064e3b;
   }
 
   body {
+    background-color: var(--bg);
+    color: var(--text);
     font-family: var(--font-body);
+    transition: background-color 0.15s ease, color 0.15s ease;
   }
 
   h1, h2, h3, h4, .font-heading {
@@ -20,34 +47,47 @@
   }
 }
 
-/* Custom scrollbars & grid accents */
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 1rem;
+  z-index: 100;
+  padding: 0.5rem 1rem;
+  background-color: var(--accent);
+  color: #ffffff;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+/* Custom scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #090a0b;
+  background: var(--bg);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #27272a;
+  background: var(--border-strong);
   border-radius: 0px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #3f3f46;
+  background: var(--text-muted);
 }
 
 .bg-grid-pattern {
   background-size: 32px 32px;
   background-image:
-    linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-}
-
-.light .bg-grid-pattern {
-  background-image:
-    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+    linear-gradient(to right, rgba(148, 163, 184, 0.05) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.05) 1px, transparent 1px);
 }

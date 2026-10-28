@@ -1,79 +1,60 @@
 import React from 'react';
-import { Cpu, Network, Terminal, Globe } from 'lucide-react';
 
 export const StackSection: React.FC = () => {
-  const domains = [
+  const groups = [
     {
-      title: 'AI / ML & TRANSFORMERS',
-      icon: Cpu,
-      items: ['PyTorch', 'HuggingFace', 'Transformers', 'ONNX Runtime', 'Intent Routing', 'Model Quantization (FP16/INT8)', 'Dataset Curation'],
+      title: 'Machine Learning',
+      items: ['PyTorch', 'Hugging Face Transformers', 'ONNX Runtime', 'Intent Routing', 'Model Quantization (FP16/INT8)', 'Dataset Curation'],
     },
     {
-      title: 'EDGE INFERENCE & LOW-RESOURCE',
-      icon: Network,
-      items: ['TFLite Web / Native', 'TensorFlow.js', 'MLC WebLLM', 'Android NDK (C++/CMake)', 'Local Memory Lifecycle', 'IndexedDB / Service Worker'],
+      title: 'Edge & Mobile Runtimes',
+      items: ['TFLite (Web & Native)', 'TensorFlow.js', 'MLC WebLLM', 'Android NDK (C++ / CMake)', 'Browser Memory Management', 'IndexedDB & Service Workers'],
     },
     {
-      title: 'SYSTEMS & AGENT ARCHITECTURE',
-      icon: Terminal,
-      items: ['Go (Golang)', 'Bubble Tea TUI', 'Security Policy Gates (T0–T4)', 'Provider-Agnostic LLM Routing', 'Autonomous Workflows', 'Diff Review & Rollbacks'],
+      title: 'Systems & Agents',
+      items: ['Go (Golang)', 'Bubble Tea TUI', 'Security Policy Gates', 'Provider-Agnostic LLM Routing', 'Autonomous Workflows', 'Diff Review & Rollbacks'],
     },
     {
-      title: 'GEOSPATIAL & WEB APPLICATIONS',
-      icon: Globe,
-      items: ['TypeScript', 'React 18', 'Vite', 'Tailwind CSS', 'Leaflet / React-Leaflet', 'Supabase Realtime Postgres', 'Framer Motion'],
+      title: 'Web & Geospatial',
+      items: ['TypeScript', 'React', 'Vite', 'Tailwind CSS', 'Leaflet', 'Supabase Realtime'],
     },
   ];
 
   return (
-    <section id="stack" className="py-20 border-b border-neutral-800 dark:border-neutral-800 light:border-neutral-200">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+    <section id="skills" className="py-16 border-b border-[var(--border)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-neutral-800 light:border-neutral-200 pb-8">
-          <div>
-            <div className="font-mono text-xs text-emerald-400 tracking-widest uppercase flex items-center gap-2">
-              <span className="w-2 h-2 bg-emerald-400"></span>
-              03 // TECHNICAL CREDIBILITY
-            </div>
-            <h2 className="text-4xl sm:text-5xl font-heading font-extrabold text-white dark:text-white light:text-neutral-900 uppercase mt-2">
-              CAPABILITY MATRIX
-            </h2>
+        <div className="border-b border-[var(--border)] pb-6">
+          <div className="font-mono text-xs text-[var(--accent)] uppercase tracking-wider">
+            Technical Skills
           </div>
-          <p className="max-w-md text-xs font-mono text-neutral-400 light:text-neutral-600 leading-relaxed">
-            Engineering domains and core stack utilized across edge systems, research experiments, and production deployments.
-          </p>
+          <h2 className="text-3xl sm:text-4xl font-heading font-extrabold text-[var(--text)] mt-1">
+            Skills & Stack
+          </h2>
         </div>
 
-        {/* Matrix Grid */}
+        {/* Compact Grouped Boxes */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {domains.map((domain, idx) => {
-            const Icon = domain.icon;
-            return (
-              <div
-                key={idx}
-                className="border border-neutral-800 dark:border-neutral-800 light:border-neutral-300 bg-[#0a0b0c] light:bg-white p-6 space-y-4 hover:border-emerald-500/50 transition-colors"
-              >
-                <div className="flex items-center gap-3 border-b border-neutral-800 light:border-neutral-200 pb-3">
-                  <div className="p-2 border border-neutral-700 light:border-neutral-300 text-emerald-400">
-                    <Icon className="w-4 h-4" />
-                  </div>
-                  <h3 className="font-heading font-bold text-sm text-white dark:text-white light:text-neutral-900 tracking-wide">
-                    {domain.title}
-                  </h3>
-                </div>
+          {groups.map((group, idx) => (
+            <div
+              key={idx}
+              className="border border-[var(--border)] bg-[var(--surface)] p-5 space-y-3 rounded-sm"
+            >
+              <h3 className="font-heading font-bold text-sm text-[var(--text)] border-b border-[var(--border)] pb-2">
+                {group.title}
+              </h3>
 
-                <ul className="space-y-2 font-mono text-xs text-neutral-300 dark:text-neutral-300 light:text-neutral-700">
-                  {domain.items.map((item, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <span className="text-emerald-400 text-[10px]">■</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            );
-          })}
+              <ul className="space-y-1.5 font-sans text-xs text-[var(--text-muted)]">
+                {group.items.map((item, i) => (
+                  <li key={i} className="flex items-center gap-2">
+                    <span className="text-[var(--accent)] font-mono">•</span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
       </div>
